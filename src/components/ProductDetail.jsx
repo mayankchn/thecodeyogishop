@@ -31,12 +31,14 @@ function ProductDetail(props) {
 
   function handleNext() {
     setQuantity(function() {
+      setLoad(true)
       return 1
     })
   }
 
   function handlePrev() {
     setQuantity(function() {
+      setLoad(true)
       return 1
     })
   }
