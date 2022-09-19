@@ -45,12 +45,9 @@ function ProductDetail(props) {
     const prom = getProduct(id)
     prom.then(function(product) {
       setProduct(product)
-      // console.log(response.data)
       setLoad(false)
     }).catch(function() {
-      // console.log('load abhi b ',load)
       setLoad(false)
-      // console.log('ab load ',load)
     })
   }, [id])
 

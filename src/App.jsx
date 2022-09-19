@@ -5,8 +5,7 @@ import Footer from './components/Footer'
 import ProductDetail from './components/ProductDetail'
 import { Routes, Route } from "react-router-dom";
 import Error from './components/Error'
-import Cart from './components/Cart'
-
+import CartList from './components/CartList'
 
 function App() {
 
@@ -45,7 +44,7 @@ function App() {
       <Routes>
         <Route index element={<ProductList />} />
         <Route path="/productdetail/:id/" element={<ProductDetail onCartChange={handleCartChange} />} />
-        <Route path="/cart" element={<Cart inCart={cart}></Cart>}/>
+        <Route path="/cart" element={<CartList cartItems={cart}/>}/>
         <Route path="*" element={<Error />} />
       </Routes>
       <Footer />
