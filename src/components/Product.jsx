@@ -1,7 +1,9 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { memo } from "react";
 
 function Product({ thumbnail, category, title, price, id }) {
+  console.log("Product running...")
   // flex flex-col items-start border-2 border-red-300
   return (
     <Link to={"/productdetail/" + id}>
@@ -17,4 +19,4 @@ function Product({ thumbnail, category, title, price, id }) {
   );
 }
 
-export default Product;
+export default memo(Product);

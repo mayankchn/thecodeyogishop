@@ -1,7 +1,8 @@
 import React from 'react'
 import { Link } from "react-router-dom";
 
-export default function Error(){
+function Error(){
+  console.log('Error running...')
   return (
     <div className="mt-10 w-4/5 mx-auto bg-white h-screen">
       <div className="flex flex-col max-w-xs mx-auto pt-20 py-2 gap-5 sm:max-w-lg sm:items-center lg:max-w-xl lg:pt-10">
@@ -11,3 +12,4 @@ export default function Error(){
     </div>
   )
 }
+export default Error
