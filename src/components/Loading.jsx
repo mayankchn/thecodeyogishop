@@ -1,7 +1,9 @@
 import React from 'react'
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
+import { memo } from 'react';
 
-export default function Loading() {
+function Loading(){
+  console.log("Loading running...")
   return (
     <div className="mt-10 w-4/5 mx-auto bg-white h-screen">
       <div className="h-screen text-gray-400 text-4xl font-bold flex justify-center items-center">
@@ -10,3 +12,4 @@ export default function Loading() {
     </div>
   )
 }
+export default memo(Loading)

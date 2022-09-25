@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import NoMatch from './NoMatch'
 import Loading from './Loading'
+
 
 // import React from 'react'
 import { getProductList } from './api'
@@ -8,6 +9,7 @@ import Product from './Product';
 // import data from '../data';
 
 function ProductList() {
+  console.log('ProductList running...')
 
   const [load, setLoad] = useState(true)
 
@@ -33,9 +35,11 @@ function ProductList() {
   const [select, setSelect] = useState('default')
   // console.log('value of select at first ', select)
 
-  let filtData = productList.filter(function(item) {
-    return item.title.toLowerCase().indexOf(search.toLowerCase()) != -1
-  })
+  const filtData = productList.filter(function(item) {
+        return item.title.toLowerCase().indexOf(search.toLowerCase()) != -1
+      })
+
+
   function handleSearch(event) {
     setSearch(event.target.value)
   }
@@ -71,8 +75,7 @@ function ProductList() {
     )
   }
 
-
-  if (select == 'name') {
+ if (select == 'name') {
     filtData.sort(function(x, y) {
       // console.log(`enetered: select:${select}, title of x:${x.title} and title of y:${y.title}`)
       return x.title < y.title ? -1 : 1;

@@ -5,10 +5,12 @@ import { getProduct } from './api'
 import Loading from './Loading'
 import { FiArrowLeftCircle, FiArrowRightCircle } from "react-icons/fi";
 import Error from './Error'
+import { memo } from 'react';
 
 
 function ProductDetail(props) {
-  // console.log(props)
+  console.log("ProductDetail running...")
+
   const id = +useParams().id
   // console.log('id ', id)
 
@@ -99,4 +101,4 @@ function ProductDetail(props) {
   );
 }
 
-export default ProductDetail;
+export default memo(ProductDetail);
