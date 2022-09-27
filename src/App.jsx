@@ -6,6 +6,9 @@ import ProductDetail from "./components/ProductDetail";
 import { Routes, Route } from "react-router-dom";
 import Error from "./components/Error";
 import CartList from "./components/CartList";
+import SignUpPage from "./components/SignUpPage";
+import SignInPage from "./components/SignInPage";
+import ForgotPage from "./components/ForgotPage";
 
 function App() {
   console.log("Alright! This is App Component and is running...");
@@ -51,6 +54,9 @@ function App() {
         />
         <Route path="/cart" element={<CartList cartItems={cart} />} />
         <Route path="*" element={<Error />} />
+        <Route path="/signup" element={<SignUpPage />}/>
+      <Route path="/signin" element={<SignInPage />}/>
+      <Route path="/forgot" element={<ForgotPage/>}/>
       </Routes>
       <Footer />
     </div>

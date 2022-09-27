@@ -2,6 +2,7 @@ import React from 'react';
 import { HiOutlineShoppingBag } from "react-icons/hi";
 import { Link } from 'react-router-dom';
 import { memo } from 'react';
+import { AiOutlineUser } from "react-icons/ai";
 
 
 function Navbar(props) {
@@ -15,11 +16,14 @@ function Navbar(props) {
             <p className="text-xs font-bold text-gray-400 tracking-wide sm:text-sm sm:tracking-wider lg:text-lg">Shop Your Coding Atire</p>
           </div>
         </Link>
+        <div className='flex flex-col items-center gap-3 sm:flex-row sm:gap-5 sm:justify-center'>
+        <Link to="/signin"><AiOutlineUser className='my-auto font-bold text-gray-500 text-3xl sm:text-4xl' /></Link>
         <Link to="/cart" className='relative'>
-        <HiOutlineShoppingBag className="text-5xl text-gray-400 lg:text-6xl">
+        <HiOutlineShoppingBag className="text-5xl text-gray-500">
         </HiOutlineShoppingBag>
         <span className="font-bold text-xs text-gray-500 absolute text-center right-1/2 left-1/2 top-1/2 bottom-1/2">{props.totalQuantity}</span>
         </Link>
+        </div>
       </div>
 
     </div>
