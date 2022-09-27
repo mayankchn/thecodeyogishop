@@ -49,10 +49,10 @@ function ForgotPage(){
                 type="submit"
                 disabled={!(formik.isValid)|| !(formik.dirty)}
                 className="rounded px-5 py-2 bg-gray-500 text-white font-bold text-lg disabled:bg-gray-300 ">
-                    Login
+                    Submit
                 </button>
             </form>
-            <p className="text-center text-gray-500">Jump back to <Link to="/signin" className="font-semibold underline uppercase">Sign in</Link></p>
+            <p className="text-center text-gray-500"> Back to <Link to="/signin" className="font-semibold underline uppercase">Sign in</Link></p>
         </div>
     )
 }
