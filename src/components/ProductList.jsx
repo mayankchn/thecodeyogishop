@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import NoMatch from './NoMatch'
 import Loading from './Loading'
+import Input from './Input';
 
 
 // import React from 'react'
@@ -107,8 +108,16 @@ function ProductList() {
       <div className="grow-1 bg-white w-4/5 mx-auto my-10 py-5">
         <div className="flex flex-col gap-1 items-center max-w-xs mx-auto sm:max-w-lg lg:max-w-3xl">
           <div className="flex flex-col w-48 items-center gap-1 self-center p-2 sm:w-80 sm:items-end sm:pr-3 sm:self-end">
-            <input value={search} onChange={handleSearch} placeholder="Search by Title" className="border w-44 px-2 py-1 text-gray-400 text-sm sm:w-60 lg:font-base" />
-            <select onChange={handleChange} value={select} className="border w-44 px-2 py-1 text-gray-400 text-sm sm:w-60 lg:font-base">
+            <input value={search} onChange={handleSearch} placeholder="Search by Title" className="border-2 rounded border-gray-300 w-44 indent-3 py-2 text-gray-400 text-sm font-semibold sm:w-60 lg:font-base" />
+            {/* <Input
+            id="search"
+            type="text" 
+            name="search"
+            placeholder="Search"
+            value={search}
+            onChange={handleSearch}
+            /> */}
+            <select onChange={handleChange} value={select} className="border-2 rounded border-gray-300 w-44 indent-3 py-2 text-gray-400 text-sm font-semibold sm:w-60 lg:font-base">
               <option value="default">Default sorting</option>
               <option value="name">Sort by name</option>
               <option value="L2H">Price: Low to high</option>
