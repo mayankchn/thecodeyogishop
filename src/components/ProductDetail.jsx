@@ -21,9 +21,7 @@ function ProductDetail(props) {
   const [quantity, setQuantity] = useState(1)
   // console.log('quantity: ', quantity)
   function handleQuantity(event) {
-    setQuantity(function() {
-      return +event.target.value
-    })
+    setQuantity(+event.target.value)
   }
   
   function handleCart() {
@@ -68,7 +66,7 @@ function ProductDetail(props) {
   }
 
   return (
-    <div className="mt-10 w-4/5 mx-auto bg-white h-screen">
+    <div className="mt-10 w-4/5 mx-auto bg-white">
       <Link to="/" className="flex flex-col max-w-xs mx-auto py-2 items-center gap-10 sm:flex-row sm:justify-between sm:max-w-lg lg:max-w-3xl">
         <FiArrowLeftCircle className="bg-gray-400 text-white rounded-full text-4xl"></FiArrowLeftCircle>
       </Link>
