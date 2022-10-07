@@ -21,7 +21,7 @@ function Navbar(props) {
         <Link to="/cart" className='relative'>
         <HiOutlineShoppingBag className="text-5xl text-gray-500">
         </HiOutlineShoppingBag>
-        <span className="font-bold text-xs text-gray-500 absolute text-center right-1/2 left-1/2 top-1/2 bottom-1/2">{props.totalQuantity}</span>
+        <span className="font-bold text-xs text-gray-500 absolute text-center right-1/2 left-1/3 top-1/2 bottom-1/2">{props.totalQuantity}</span>
         </Link>
         </div>
       </div>

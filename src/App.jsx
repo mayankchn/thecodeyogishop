@@ -19,9 +19,9 @@ function App() {
   const [cart, setCart] = React.useState(storedCartData);
 
   function handleCartChange(productId, quantity) {
-    console.log(
-      `productId: ${productId}, quantity: ${quantity} has added to cart`
-    );
+    // console.log(
+    //   `productId: ${productId}, quantity: ${quantity} has added to cart`
+    // );
     setCart(function (prevCart) {
       const oldQuantity = prevCart[productId] || 0;
       // console.log('old quantity: ',oldQuantity)
@@ -29,7 +29,7 @@ function App() {
       // console.log('new quantity:',newQuantity)
 
       const newCart = { ...prevCart, [productId]: newQuantity };
-      console.log("new cart has ", newCart);
+      // console.log("new cart has ", newCart);
       return newCart;
     });
   }
@@ -39,9 +39,9 @@ function App() {
   const totalQuantity = Object.keys(cart).reduce(function (output, current) {
     return output + cart[current];
   }, 0);
-  console.log("total items in cart: ", totalQuantity);
+  // console.log("total items in cart: ", totalQuantity);
 
-  console.log("cart has ", cart);
+  // console.log("cart has ", cart);
 
   return (
     <div className="bg-gray-100">
@@ -52,7 +52,7 @@ function App() {
           path="/productdetail/:id/"
           element={<ProductDetail onCartChange={handleCartChange} />}
         />
-        <Route path="/cart" element={<CartList cartItems={cart} />} />
+        <Route path="/cart" element={<CartList cartItems={cart} setCart={setCart} />} />
         <Route path="*" element={<Error />} />
         <Route path="/signup" element={<SignUpPage />}/>
       <Route path="/signin" element={<SignInPage />}/>

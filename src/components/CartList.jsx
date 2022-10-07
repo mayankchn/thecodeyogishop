@@ -3,15 +3,21 @@ import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { getProduct } from './api'
 import CartRow from './CartRow'
+import Checkout from './Checkout'
 import Loading from './Loading'
 
-export default function CartList({cartItems}) {
+export default function CartList({cartItems, setCart}) {
+
+    const [localCartItems, setLocalCartItems] = useState(cartItems)
 
     const [productList, setProductList] = useState([])
-    console.log('productList is ',productList)
+    // console.log('productList is ',productList)
 
     const [load, setLoad] = useState(true)
 
+    useEffect(function(){
+        setLocalCartItems(cartItems)
+    },[cartItems])
 
     useEffect(function(){
         const promises = Object.keys(cartItems).map(function(productId){
@@ -21,14 +27,38 @@ export default function CartList({cartItems}) {
             setProductList(response)
             setLoad(false)
         })
-    },[])
+    },[cartItems])
+
+    function handleDelete(id){
+        // console.log('delete handle clicked with ',id)
+        const newCartItems = {...cartItems}
+        // console.log('before : ',newCartItems)
+        delete newCartItems[id]
+        // console.log('after : ',newCartItems)
+        setCart(newCartItems)
+    }
+
+    function handleChange(event){
+        // console.log('values recieved on handle change ',event.target.value, event.target.getAttribute('id'))
+        const newQuantity = +event.target.value
+        const id = event.target.getAttribute('id')
+        const newLocalCartItems = {...localCartItems, [id]:newQuantity}
+        setLocalCartItems(newLocalCartItems)
+    }
+
+    function updateCart(){
+        // console.log('quantity handle clicked')
+        setCart(localCartItems)
+    }
 
     const cartList= productList.map(function(product){
         return (
             <CartRow
                 key={product.id}
-                quantity={cartItems[product.id]}
+                quantity={localCartItems[product.id]}
                 product={product}
+                handleDelete={handleDelete}
+                handleChange={handleChange}
             />
         )
     })
@@ -39,7 +69,7 @@ export default function CartList({cartItems}) {
 
     if(productList.length<1){
             return (
-                <div className="mt-10 w-4/5 mx-auto bg-white h-screen">
+                <div className="mt-10 w-4/5 mx-auto bg-white">
                     <div className="mx-auto flex flex-col justify-center items-center px-2 py-10 gap-5 sm:max-w-lg lg:max-w-xl">
                     <h1 className="font-semibold text-center text-lg text-gray-500 sm:text-xl lg:font-bold  lg:text-2xl">You haven't added any item to the cart. Have you?</h1>
                         <Link to='/' className='w-full uppercase text-center bg-gray-400 text-white px-3 py-2 font-semibold sm:w-56 lg:font-bold'>Reutrn to shopping</Link>
@@ -62,9 +92,24 @@ export default function CartList({cartItems}) {
                 <div className='border flex flex-col mx-2 py-2 gap-1 sm:flex-row sm:justify-between'>
                     <div className='flex px-2 justify-between gap-1'>
                         <input type="text" placeholder='Coupon Code' className='border p-1 w-1/2 sm:px-3 sm:py-2 sm:font-semibold' />
-                        <button className='px-2 py-1 text-gray-100 bg-gray-400 font-semibold sm:w-40 sm:px-3 sm:py-2 sm:font-bold'>Apply Coupon</button>
+                        <button className='rounded px-2 py-1 text-white bg-gray-500 font-semibold sm:w-40 sm:px-3 sm:py-2 lg:font-bold'>Apply Coupon</button>
                     </div>
-                    <button className='p-2 mx-2 text-gray-100 bg-gray-400 font-semibold sm:w-40 sm:px-3 sm:py-2 sm:font-bold'>Update Cart</button>
+                    <button 
+                    className='rounded p-2 mx-2 text-white bg-gray-500 font-semibold sm:w-40 sm:px-3 sm:py-2 lg:font-bold'
+                    onClick={updateCart}
+                    >
+                        Update Cart
+                    </button>
+                </div>
+            </div>
+            <div className='py-10 flex flex-col lg:items-end'>
+                <div className='border-2 mx-2 flex flex-col text-gray-500 lg:w-1/2'>
+                    <h1 className='border-b font-bold text-xl px-2 bg-gray-100 py-3'>Cart totals</h1>
+                    <Checkout 
+                    productList={productList} 
+                    cartItems={cartItems}
+                    />
+                    <button className='rounded text-white font-semibold px-2 uppercase bg-gray-500 py-3 mx-7 mb-5 lg:font-bold'>Proceed to checkout</button>
                 </div>
             </div>
         </div>
