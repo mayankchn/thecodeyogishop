@@ -21,7 +21,11 @@ function ProductDetail(props) {
   const [quantity, setQuantity] = useState(1)
   // console.log('quantity: ', quantity)
   function handleQuantity(event) {
-    setQuantity(+event.target.value)
+    if(+event.target.value>0){
+      setQuantity(+event.target.value)
+    }else{
+      setQuantity(1)
+    }
   }
   
   function handleCart() {
