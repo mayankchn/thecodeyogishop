@@ -9,7 +9,7 @@ import Loading from './Loading'
 export default function CartList({cartItems, setCart}) {
 
     const [localCartItems, setLocalCartItems] = useState(cartItems)
-    console.log('cart ',localCartItems)
+    console.log('local cart ',localCartItems)
 
     
     const [productList, setProductList] = useState([])
@@ -33,12 +33,17 @@ export default function CartList({cartItems, setCart}) {
 
     function handleDelete(id){
         console.log('delete handle clicked having id ',id, typeof(id))
+        if(localCartItems[id]===0){
+            const newLocalCartItems = {...localCartItems}
+            delete newLocalCartItems[id]
+            setLocalCartItems(newLocalCartItems)
+        }
         const newCartItems = {...cartItems}
         // console.log('before : ',newCartItems)
         delete newCartItems[id] 
         // console.log('after : ',newCartItems)
-        setLoad(true)
         setCart(newCartItems)
+        setLoad(true)
     }
 
     function handleChange(event,id){
@@ -54,26 +59,21 @@ export default function CartList({cartItems, setCart}) {
     }
 
     function updateCart(){
+        setLoad(true)
         console.log('update cart handle clicked')
         const idArray = Object.keys(localCartItems)
-        console.log(idArray)
-        const quantityArray = Object.values(localCartItems)
-        console.log(quantityArray)
+        // console.log(idArray)
         
-
         for (let i = 0; i < idArray.length; i++) {
+            console.log('inside loop')
             let id = idArray[i];
             // console.log('id ',id)
-            // console.log('quantity ',quantityArray[i])
             if(localCartItems[id]=== 0){
-                // console.log('quantity with id ',quantityArray[i],id)
                 handleDelete(+id)
+                return
             }
         }
-        // setLoad(false)
-        if(!handleDelete){
-            setCart(localCartItems)
-        }
+        setCart(localCartItems)
     }
 
     const cartList= productList.map(function(product){
@@ -139,4 +139,4 @@ export default function CartList({cartItems, setCart}) {
             </div>
         </div>
     )
-}
+    }
