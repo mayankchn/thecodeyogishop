@@ -9,7 +9,9 @@ import Loading from './Loading'
 export default function CartList({cartItems, setCart}) {
 
     const [localCartItems, setLocalCartItems] = useState(cartItems)
+    console.log('cart ',localCartItems)
 
+    
     const [productList, setProductList] = useState([])
     // console.log('productList is ',productList)
 
@@ -30,25 +32,48 @@ export default function CartList({cartItems, setCart}) {
     },[cartItems])
 
     function handleDelete(id){
-        // console.log('delete handle clicked with ',id)
+        console.log('delete handle clicked having id ',id, typeof(id))
         const newCartItems = {...cartItems}
         // console.log('before : ',newCartItems)
-        delete newCartItems[id]
+        delete newCartItems[id] 
         // console.log('after : ',newCartItems)
+        setLoad(true)
         setCart(newCartItems)
     }
 
-    function handleChange(event){
+    function handleChange(event,id){
         // console.log('values recieved on handle change ',event.target.value, event.target.getAttribute('id'))
-        const newQuantity = +event.target.value
-        const id = event.target.getAttribute('id')
+        let newQuantity = +event.target.value
+        if(newQuantity>0){
+            newQuantity = +event.target.value
+        }else{
+            newQuantity = 0
+        }
         const newLocalCartItems = {...localCartItems, [id]:newQuantity}
         setLocalCartItems(newLocalCartItems)
     }
 
     function updateCart(){
-        // console.log('quantity handle clicked')
-        setCart(localCartItems)
+        console.log('update cart handle clicked')
+        const idArray = Object.keys(localCartItems)
+        console.log(idArray)
+        const quantityArray = Object.values(localCartItems)
+        console.log(quantityArray)
+        
+
+        for (let i = 0; i < idArray.length; i++) {
+            let id = idArray[i];
+            // console.log('id ',id)
+            // console.log('quantity ',quantityArray[i])
+            if(localCartItems[id]=== 0){
+                // console.log('quantity with id ',quantityArray[i],id)
+                handleDelete(+id)
+            }
+        }
+        // setLoad(false)
+        if(!handleDelete){
+            setCart(localCartItems)
+        }
     }
 
     const cartList= productList.map(function(product){
