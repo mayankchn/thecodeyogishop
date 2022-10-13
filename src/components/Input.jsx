@@ -2,7 +2,7 @@ import React from "react";
 import FormikHOC from "./FormikHOC";
 
 function Input(props) {
-console.log('In Input : ',props)
+// console.log('In Input : ',props)
 
 let borderClass = "border-2 border-gray-400 rounded focus:outline-none focus:ring focus:ring-green-300"
   

@@ -3,15 +3,15 @@ import React from "react";
 
 function FormikHOC(IncomingComponent){
     function OutgoingComponent(props) {
-        console.log('props are ',props)
+        // console.log('props are ',props)
       
         const inputField = useField(props.name)
-        console.log('input field ',inputField)
+        // console.log('input field ',inputField)
       
         const [field, meta, helpers] = inputField
-        console.log('field is ',field)
-        console.log('meta is ',meta)
-        console.log('helpers is ',helpers)
+        // console.log('field is ',field)
+        // console.log('meta is ',meta)
+        // console.log('helpers is ',helpers)
       
         return (
             <IncomingComponent

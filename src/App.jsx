@@ -22,6 +22,7 @@ function App() {
     // console.log(
     //   `productId: ${productId}, quantity: ${quantity} has added to cart`
     // );
+    
     setCart(function (prevCart) {
       const oldQuantity = prevCart[productId] || 0;
       // console.log('old quantity: ',oldQuantity)
