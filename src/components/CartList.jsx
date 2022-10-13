@@ -9,7 +9,7 @@ import Loading from './Loading'
 export default function CartList({cartItems, setCart}) {
 
     const [localCartItems, setLocalCartItems] = useState(cartItems)
-    console.log('local cart ',localCartItems)
+    // console.log('local cart ',localCartItems)
 
     
     const [productList, setProductList] = useState([])
@@ -32,7 +32,8 @@ export default function CartList({cartItems, setCart}) {
     },[cartItems])
 
     function handleDelete(id){
-        console.log('delete handle clicked having id ',id, typeof(id))
+        setLoad(true)
+        // console.log('delete handle clicked having id ',id, typeof(id))
         if(localCartItems[id]===0){
             const newLocalCartItems = {...localCartItems}
             delete newLocalCartItems[id]
@@ -43,7 +44,6 @@ export default function CartList({cartItems, setCart}) {
         delete newCartItems[id] 
         // console.log('after : ',newCartItems)
         setCart(newCartItems)
-        setLoad(true)
     }
 
     function handleChange(event,id){
@@ -60,12 +60,12 @@ export default function CartList({cartItems, setCart}) {
 
     function updateCart(){
         setLoad(true)
-        console.log('update cart handle clicked')
+        // console.log('update cart handle clicked')
         const idArray = Object.keys(localCartItems)
         // console.log(idArray)
         
         for (let i = 0; i < idArray.length; i++) {
-            console.log('inside loop')
+            // console.log('inside loop')
             let id = idArray[i];
             // console.log('id ',id)
             if(localCartItems[id]=== 0){
@@ -95,7 +95,7 @@ export default function CartList({cartItems, setCart}) {
     if(productList.length<1){
             return (
                 <div className="mt-10 w-4/5 mx-auto bg-white">
-                    <div className="mx-auto flex flex-col justify-center items-center px-2 py-10 gap-5 sm:max-w-lg lg:max-w-xl">
+                    <div className="mx-auto h-screen flex flex-col justify-center items-center px-2 py-10 gap-5 sm:max-w-lg lg:max-w-xl">
                     <h1 className="font-semibold text-center text-lg text-gray-500 sm:text-xl lg:font-bold  lg:text-2xl">You haven't added any item to the cart. Have you?</h1>
                         <Link to='/' className='w-full uppercase text-center bg-gray-400 text-white px-3 py-2 font-semibold sm:w-56 lg:font-bold'>Reutrn to shopping</Link>
                     </div>
@@ -107,11 +107,11 @@ export default function CartList({cartItems, setCart}) {
         <div className='mt-10 mx-2 bg-white sm:w-4/5 sm:mx-auto'>
             <div className='py-10 border flex flex-col gap-1'>
                 <div className="hidden bg-gray-100 lg:block lg:border lg:flex lg:justify-between lg:px-2 lg:py-3 lg:font-bold lg:text-gray-500">
-                    <span className='w-20'></span>
-                    <p>Product</p>
-                    <p>Price</p>
-                    <p>Quantity</p>
-                    <p>Subtotal</p>
+                    <span className='w-1/2'></span>
+                    <p className='lg:w-1/4'>Product</p>
+                    <p className='lg:w-1/4'>Price</p>
+                    <p className='lg:w-1/4'>Quantity</p>
+                    <p className='lg:w-1/4'>Subtotal</p>
                 </div>
                 {cartList}
                 <div className='border flex flex-col mx-2 py-2 gap-1 sm:flex-row sm:justify-between'>

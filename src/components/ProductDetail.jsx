@@ -29,7 +29,7 @@ function ProductDetail(props) {
   }
   
   function handleCart() {
-    console.log('handleCart clicked...')
+    // console.log('handleCart clicked...')
     props.onCartChange(id, quantity)
   }
 
