@@ -17,7 +17,8 @@ function Navbar(props) {
           </div>
         </Link>
         <div className='flex flex-col items-center gap-3 sm:flex-row sm:gap-5 sm:justify-center'>
-        <Link to="/signin"><AiOutlineUser className='my-auto font-bold text-gray-500 text-3xl sm:text-4xl' /></Link>
+        <Link to="/logged-in-user"><AiOutlineUser className='my-auto font-bold text-gray-500 text-3xl sm:text-4xl' /></Link>
+        
         <Link to="/cart" className='relative'>
         <HiOutlineShoppingBag className="text-5xl text-gray-500">
         </HiOutlineShoppingBag>
