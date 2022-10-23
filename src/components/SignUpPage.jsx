@@ -1,87 +1,106 @@
-import { Formik, Form } from "formik";
+// import { useFormik } from "formik";
+// import { Formik, Form } from "formik";
+import { withFormik } from "formik";
 import React from "react";
 import * as Yup from 'yup';
-import { Link } from "react-router-dom";
-import {FormikInput} from "./Input";
+import { Link, Navigate } from "react-router-dom";
+import FormButton from "./FormButton";
+import Input from "./Input";
+import FancyInput from "./FancyInput"
+import axios from "axios";
 
-function SignUpPage(){
-    // console.log('signup called')
-
-    const SignUpSchema = Yup.object().shape({
-        firstName: Yup.string().required('Required'),
-        lastName: Yup.string().required('Required'),
-        userName: Yup.string().required('Required'),
-        email: Yup.string().email('Invalid email').required('Required'),
-        password: Yup.string().min(8).required('Required')
+function callApi(values,bag){
+    // console.log(`data sent with fullName:${values.fullName}, email:${values.email} and password:${values.password}`)
+    console.log(bag,values)
+    axios.post("https://myeasykart.codeyogi.io/signup", {
+        fullName: values.fullName,
+        email: values.email,
+        password: values.password
+    }).then((response)=>{
+        const {token,user}=response.data
+        // console.log('response by api ',user,token)
+        localStorage.setItem("token", token)
+        bag.props.setUser(user)
+    }).catch(()=>{
+        console.log("unable to signup.")
     })
+}
 
-    function apiCall(){
-        console.log("data sent...")
-    }
+const SingupSchema = Yup.object().shape({
+    fullName: Yup.string().max(30,"Fullname must be 30 character or less").required('Required'),
+    email: Yup.string().email('Invalid email address').required('Required'),
+    password: Yup.string().min(8,'must be 8 characters long').required('Required')
+})
 
-    const initialValues = {
-        firstName:'',
-        lastName:'',
-        userName:'',
-        email:'',
-        password:''
-    }
+const initialValues = {
+        fullName:"",
+        email:"",
+        password:""
+}
+
+function SignUpPage({values, errors, touched, handleSubmit, handleChange, handleBlur}){
 
     return (
     <div className="w-full bg-white py-10 mx-2 mt-10 flex flex-col gap-10 sm:w-4/5 sm:mx-auto">
-        <Formik
-            initialValues={initialValues}
-            validationSchema={SignUpSchema}
-            onSubmit={apiCall}
-            validateOnMount
-        >
-            
-            <Form
-            className="flex flex-col gap-5 py-10 px-5 w-4/5 text-gray-500 border-2 border-gray-500 rounded mx-auto sm:w-4/5 sm:max-w-lg">
+            <form
+                onSubmit={handleSubmit}
+                className="flex flex-col gap-5 py-10 px-5 w-4/5 text-gray-500 border-2 border-gray-500 rounded mx-auto sm:w-4/5 sm:max-w-lg"
+            >
                 <h1 className="mx-2 px-2 text-3xl font-black text-gray-500 text-center">Sign up</h1>
-                <FormikInput 
-                type="text"
-                id="firstName"
-                name="firstName"
-                placeholder="first name"
-            />
-            <FormikInput 
-                label="lastName"
-                type="text"
-                id="lastName"
-                name="lastName"
-                placeholder="last name"
-            />
-            <FormikInput 
-                label="userName"
-                type="text"
-                id="userName"
-                name="userName"
-                placeholder="username"
-            />
-            <FormikInput 
-                label="email"
-                type="email"
-                id="email"
-                name="email"
-                placeholder="your email"
-            />
-            <FormikInput 
-                label="password"
-                type="password"
-                id="password"
-                name="password"
-                placeholder="your password"
-            />
-                <button 
+                <Input 
+                    label="Your full name: "
+                    id="fullName"
+                    type="text"
+                    name="fullName"
+                    placeholder="Enter your fullname"
+                    required
+                    value={values.fullName}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    touched={touched.fullName}
+                    error={errors.fullName}
+                />
+                <Input 
+                    label="Your email: "
+                    id="email"
+                    type="email"
+                    name="email"
+                    placeholder="Enter your email"
+                    required
+                    value={values.email}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    touched={touched.email}
+                    error={errors.email}
+                />
+                <FancyInput 
+                    label="Your password: "
+                    id="password"
+                    type="password"
+                    name="password"
+                    placeholder="Enter your password"
+                    required
+                    value={values.password}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    touched={touched.password}
+                    error={errors.password}
+                />
+                <FormButton 
                 type="submit"
+                // disabled={!isValid}
                 className="rounded px-5 py-2 bg-gray-500 text-white font-bold text-lg disabled:bg-gray-300">
                     Create an account
-                </button>
-            </Form>
-        </Formik>
+                </FormButton>
+            </form>
         <p className="text-center text-gray-500 ">Already a user? <Link to="/signin" className="font-semibold underline uppercase">Login</Link></p>
     </div>
     )
 }
-export default SignUpPage
+const myHOC = withFormik({
+    initialValues:initialValues,
+    validationSchema:SingupSchema,
+    handleSubmit:callApi
+})
+const EasySignUpPage = myHOC(SignUpPage)
+export default EasySignUpPage
