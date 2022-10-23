@@ -2,7 +2,7 @@ import React from "react";
 // import { useFormik } from "formik";
 import { withFormik } from "formik";
 import * as Yup from 'yup';
-import { Link, Navigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import FormButton from "./FormButton";
 import Input from "./Input";
 import FancyInput from "./FancyInput";
@@ -36,7 +36,6 @@ const initialValues = {
 
 function SignInPage({values, errors, touched, handleChange,handleBlur,handleSubmit}){
     // console.log('values in props ',values,errors)
-    
     return (
         <div className="flex flex-col gap-10 w-full bg-white py-10 mx-2 mt-10 sm:w-4/5 sm:mx-auto">
             <form onSubmit={handleSubmit}
@@ -84,12 +83,9 @@ function SignInPage({values, errors, touched, handleChange,handleBlur,handleSubm
     )
 }
 
-const myHOC = withFormik({
+export default withFormik({
     initialValues:initialValues,
     validationSchema:LoginSchema,
     handleSubmit:callApi
-})
+})(SignInPage)
 
-const EasySignInPage = myHOC(SignInPage)
-
-export default EasySignInPage

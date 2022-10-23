@@ -102,5 +102,8 @@ const myHOC = withFormik({
     validationSchema:SingupSchema,
     handleSubmit:callApi
 })
-const EasySignUpPage = myHOC(SignUpPage)
-export default EasySignUpPage
+export default withFormik({
+    initialValues:initialValues,
+    validationSchema:SingupSchema,
+    handleSubmit:callApi
+})(SignUpPage)
