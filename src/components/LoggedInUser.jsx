@@ -1,9 +1,12 @@
 import React from "react"
+import { useContext } from "react";
 import { AiOutlineUser } from "react-icons/ai";
+import { userContext } from "../App";
 import FormButton from "./FormButton";
 
 // Component description
-function LoggedInUser({user,setUser,token}){
+function LoggedInUser({token}){
+  const {user,setUser}=useContext(userContext)
     console.log('user is ',user)
     function handleLogout(){
       console.log('Logout handle clicked!')

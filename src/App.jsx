@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, createContext } from "react";
 import ProductList from "./components/ProductList";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
@@ -15,6 +15,7 @@ import AuthRoute from "./components/AuthRoute";
 import UserRoute from "./components/UserRoute";
 import LoggedInUser from "./components/LoggedInUser";
 
+export const userContext = createContext()
 
 function App() {
   console.log("Alright! This is App Component and is running...");
@@ -78,21 +79,23 @@ function App() {
 
   return (
     <div className="bg-gray-100">
-      <Navbar user={user} totalQuantity={totalQuantity} />
+      <userContext.Provider value={{user,setUser}}>
+      <Navbar totalQuantity={totalQuantity} token={token} />
       <Routes>
-        <Route index element={<UserRoute user={user}><ProductList /></UserRoute>} />
+        <Route index element={<UserRoute><ProductList /></UserRoute>} />
         <Route
           path="/productdetail/:id/"
           element={<ProductDetail onCartChange={handleCartChange} />}
         />
-        <Route path="/cart" element={<CartList cartItems={cart} setCart={setCart} />} />
-        <Route path="/logged-in-user" element={<UserRoute user={user}><LoggedInUser user={user} setUser={setUser} token={token}/></UserRoute>} />
+        <Route path="/cart" element={<UserRoute><CartList cartItems={cart} setCart={setCart} /></UserRoute>} />
+        <Route path="/logged-in-user" element={<UserRoute><LoggedInUser user={user} setUser={setUser} token={token}/></UserRoute>} />
         <Route path="*" element={<Error />} />
         <Route path="/signup" element={<AuthRoute user={user}><SignUpPage setUser={setUser} /></AuthRoute>}/>
         <Route path="/signin" element={<AuthRoute user={user}><SignInPage setUser={setUser} /></AuthRoute>}/>
         <Route path="/forgot" element={<ForgotPage/>}/>
       </Routes>
       <Footer />
+      </userContext.Provider>
     </div>
   );
 }
