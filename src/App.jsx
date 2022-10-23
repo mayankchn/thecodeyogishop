@@ -86,7 +86,7 @@ function App() {
           element={<ProductDetail onCartChange={handleCartChange} />}
         />
         <Route path="/cart" element={<CartList cartItems={cart} setCart={setCart} />} />
-        <Route path="/logged-in-user" element={<LoggedInUser user={user} setUser={setUser} />} />
+        <Route path="/logged-in-user" element={<UserRoute user={user}><LoggedInUser user={user} setUser={setUser} token={token}/></UserRoute>} />
         <Route path="*" element={<Error />} />
         <Route path="/signup" element={<AuthRoute user={user}><SignUpPage setUser={setUser} /></AuthRoute>}/>
         <Route path="/signin" element={<AuthRoute user={user}><SignInPage setUser={setUser} /></AuthRoute>}/>
