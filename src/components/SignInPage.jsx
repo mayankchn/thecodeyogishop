@@ -8,6 +8,7 @@ import Input from "./Input";
 import FancyInput from "./FancyInput";
 import axios from "axios";
 import withUser from "./withUser";
+import withAlert from "./withAlert";
 
 function callApi(values, bag){
     console.log('data sent ',values.email,values.password)
@@ -20,8 +21,16 @@ function callApi(values, bag){
         // console.log('response by api ',user)
         localStorage.setItem("token", token)
         bag.props.setUser(user)
+        bag.props.setAlert({
+            type:"success",
+            message:"You're now logged in."
+        })
     }).catch(()=>{
         console.log("unable to login.")
+        bag.props.setAlert({
+            type:"error",
+            message:"Invalid credentials."
+        })
     })
 }
 
@@ -90,5 +99,5 @@ const FormikSignin =  withFormik({
     handleSubmit:callApi
 })(SignInPage)
 
-export default withUser(FormikSignin)
+export default withAlert(withUser(FormikSignin))
 
