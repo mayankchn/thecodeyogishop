@@ -1,15 +1,12 @@
 import React from "react"
-import { useContext } from "react";
 import { AiOutlineUser } from "react-icons/ai";
-import { userContext } from "../App";
 import FormButton from "./FormButton";
+import withUser from "./withUser";
 
 // Component description
-function LoggedInUser({token}){
-  const {user,setUser}=useContext(userContext)
-    console.log('user is ',user)
+function LoggedInUser({user,setUser}){
     function handleLogout(){
-      console.log('Logout handle clicked!')
+      // console.log('Logout handle clicked!')
       localStorage.removeItem('token')
       setUser(undefined)
     }
@@ -34,4 +31,4 @@ return (
     </>
   )
 }
-export default LoggedInUser
+export default withUser(LoggedInUser)

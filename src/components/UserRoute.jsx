@@ -1,15 +1,12 @@
-import React, { useContext } from "react"
+import React from "react"
 import { Navigate } from "react-router-dom"
-import { userContext } from "../App"
+import withUser from "./withUser"
 
 // Component description
-function UserRoute({children}){
-    const {user,setUser} = useContext(userContext)
+function UserRoute({user,children}){
     if(!user){
-        return (
-            <Navigate to="/signin" />
-        )
+        return <Navigate to="/signin" />
     }
 return  children
 }
-export default UserRoute
+export default withUser(UserRoute)
