@@ -80,19 +80,26 @@ function App() {
   return (
     <div className="bg-gray-100">
       <userContext.Provider value={{user,setUser}}>
-      <Navbar totalQuantity={totalQuantity} token={token} />
+      <Navbar totalQuantity={totalQuantity} />
       <Routes>
-        <Route index element={<UserRoute><ProductList /></UserRoute>} />
+        <Route index 
+        element={<UserRoute><ProductList /></UserRoute>} />
         <Route
           path="/productdetail/:id/"
           element={<ProductDetail onCartChange={handleCartChange} />}
         />
-        <Route path="/cart" element={<UserRoute><CartList cartItems={cart} setCart={setCart} /></UserRoute>} />
-        <Route path="/logged-in-user" element={<UserRoute><LoggedInUser user={user} setUser={setUser} token={token}/></UserRoute>} />
-        <Route path="*" element={<Error />} />
-        <Route path="/signup" element={<AuthRoute user={user}><SignUpPage setUser={setUser} /></AuthRoute>}/>
-        <Route path="/signin" element={<AuthRoute user={user}><SignInPage setUser={setUser} /></AuthRoute>}/>
-        <Route path="/forgot" element={<ForgotPage/>}/>
+        <Route path="/cart"
+         element={<UserRoute><CartList cartItems={cart} setCart={setCart} /></UserRoute>} />
+        <Route path="/logged-in-user"
+         element={<UserRoute><LoggedInUser/></UserRoute>} />
+        <Route path="*" 
+        element={<Error />} />
+        <Route path="/signup" 
+        element={<AuthRoute><SignUpPage /></AuthRoute>}/>
+        <Route path="/signin" 
+        element={<AuthRoute><SignInPage /></AuthRoute>}/>
+        <Route path="/forgot" 
+        element={<AuthRoute><ForgotPage/></AuthRoute>}/>
       </Routes>
       <Footer />
       </userContext.Provider>

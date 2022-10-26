@@ -7,6 +7,7 @@ import FormButton from "./FormButton";
 import Input from "./Input";
 import FancyInput from "./FancyInput";
 import axios from "axios";
+import withUser from "./withUser";
 
 function callApi(values, bag){
     console.log('data sent ',values.email,values.password)
@@ -83,9 +84,11 @@ function SignInPage({values, errors, touched, handleChange,handleBlur,handleSubm
     )
 }
 
-export default withFormik({
+const FormikSignin =  withFormik({
     initialValues:initialValues,
     validationSchema:LoginSchema,
     handleSubmit:callApi
 })(SignInPage)
+
+export default withUser(FormikSignin)
 

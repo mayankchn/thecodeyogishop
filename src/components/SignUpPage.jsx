@@ -8,6 +8,7 @@ import FormButton from "./FormButton";
 import Input from "./Input";
 import FancyInput from "./FancyInput"
 import axios from "axios";
+import withUser from "./withUser";
 
 function callApi(values,bag){
     // console.log(`data sent with fullName:${values.fullName}, email:${values.email} and password:${values.password}`)
@@ -97,13 +98,10 @@ function SignUpPage({values, errors, touched, handleSubmit, handleChange, handle
     </div>
     )
 }
-const myHOC = withFormik({
-    initialValues:initialValues,
-    validationSchema:SingupSchema,
-    handleSubmit:callApi
-})
-export default withFormik({
+const FormikSignup = withFormik({
     initialValues:initialValues,
     validationSchema:SingupSchema,
     handleSubmit:callApi
 })(SignUpPage)
+
+export default withUser(FormikSignup)

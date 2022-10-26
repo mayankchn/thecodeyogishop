@@ -1,14 +1,12 @@
 import React from "react"
-import { useContext } from "react"
 import { Navigate } from "react-router-dom"
-import { userContext } from "../App"
+import withUser from "./withUser"
 
 // Component description
-function AuthRoute({children}){
-const {user,setUser} = useContext(userContext)
-if(user){
-    return <Navigate to="/" />
-}
+function AuthRoute({user,children}){
+    if(user){
+        return <Navigate to="/" />
+    }
 return children
 }
-export default AuthRoute
+export default withUser(AuthRoute)
