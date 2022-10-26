@@ -14,14 +14,22 @@ import Loading from "./components/Loading";
 import AuthRoute from "./components/AuthRoute";
 import UserRoute from "./components/UserRoute";
 import LoggedInUser from "./components/LoggedInUser";
+import Alert from "./components/Alert";
 
 export const userContext = createContext()
+export const alertContext = createContext()
 
 function App() {
   console.log("Alright! This is App Component and is running...");
 
   const [ user, setUser ] = useState()
   console.log('logged in user ',user)
+
+  const [alert, setAlert] = useState()
+
+  function removeAlert(){
+    setAlert(undefined);
+}
 
   const [ load, setLoad ] = useState(true)
 
@@ -80,7 +88,9 @@ function App() {
   return (
     <div className="bg-gray-100">
       <userContext.Provider value={{user,setUser}}>
+      <alertContext.Provider value={{alert,setAlert,removeAlert}}>
       <Navbar totalQuantity={totalQuantity} />
+      <Alert/>
       <Routes>
         <Route index 
         element={<UserRoute><ProductList /></UserRoute>} />
@@ -102,6 +112,7 @@ function App() {
         element={<AuthRoute><ForgotPage/></AuthRoute>}/>
       </Routes>
       <Footer />
+      </alertContext.Provider>
       </userContext.Provider>
     </div>
   );

@@ -9,6 +9,7 @@ import Input from "./Input";
 import FancyInput from "./FancyInput"
 import axios from "axios";
 import withUser from "./withUser";
+import withAlert from "./withAlert";
 
 function callApi(values,bag){
     // console.log(`data sent with fullName:${values.fullName}, email:${values.email} and password:${values.password}`)
@@ -22,8 +23,16 @@ function callApi(values,bag){
         // console.log('response by api ',user,token)
         localStorage.setItem("token", token)
         bag.props.setUser(user)
+        bag.props.setAlert({
+            type:"success",
+            message:"Your account is created."
+        })
     }).catch(()=>{
         console.log("unable to signup.")
+        bag.props.setAlert({
+            type:"error",
+            message:"You may have entered wrong into the given fields."
+        })
     })
 }
 
@@ -104,4 +113,4 @@ const FormikSignup = withFormik({
     handleSubmit:callApi
 })(SignUpPage)
 
-export default withUser(FormikSignup)
+export default withAlert(withUser(FormikSignup))
