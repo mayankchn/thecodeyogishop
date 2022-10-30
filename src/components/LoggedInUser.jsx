@@ -1,7 +1,8 @@
 import React from "react"
 import { AiOutlineUser } from "react-icons/ai";
+import { userContext } from "./Contexts";
 import FormButton from "./FormButton";
-import withUser from "./withUser";
+import withProvider from "./withProvider";
 
 // Component description
 function LoggedInUser({user,setUser}){
@@ -31,4 +32,4 @@ return (
     </>
   )
 }
-export default withUser(LoggedInUser)
+export default withProvider(userContext)(LoggedInUser)

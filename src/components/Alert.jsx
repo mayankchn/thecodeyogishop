@@ -1,7 +1,8 @@
 import React ,{useEffect} from "react";
 import {TiTickOutline} from "react-icons/ti"
 import {HiOutlineXCircle} from "react-icons/hi"
-import withAlert from "./withAlert";
+import withProvider from "./withProvider";
+import { alertContext } from "./Contexts";
 
 function Alert({alert,setAlert,removeAlert}){
     // console.log('props in Alert ',props)
@@ -53,4 +54,4 @@ function Alert({alert,setAlert,removeAlert}){
     )
 }
 
-export default withAlert(Alert);
+export default withProvider(alertContext)(Alert);

@@ -1,6 +1,7 @@
 import React from "react"
 import { Navigate } from "react-router-dom"
-import withUser from "./withUser"
+import { userContext } from "./Contexts"
+import withProvider from "./withProvider"
 
 // Component description
 function AuthRoute({user,children}){
@@ -9,4 +10,4 @@ function AuthRoute({user,children}){
     }
 return children
 }
-export default withUser(AuthRoute)
+export default withProvider(userContext)(AuthRoute)

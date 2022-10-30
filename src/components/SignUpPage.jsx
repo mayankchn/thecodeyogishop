@@ -8,8 +8,8 @@ import FormButton from "./FormButton";
 import Input from "./Input";
 import FancyInput from "./FancyInput"
 import axios from "axios";
-import withUser from "./withUser";
-import withAlert from "./withAlert";
+import withProvider from "./withProvider";
+import { alertContext, userContext } from "./Contexts";
 
 function callApi(values,bag){
     // console.log(`data sent with fullName:${values.fullName}, email:${values.email} and password:${values.password}`)
@@ -113,4 +113,4 @@ const FormikSignup = withFormik({
     handleSubmit:callApi
 })(SignUpPage)
 
-export default withAlert(withUser(FormikSignup))
+export default withProvider(alertContext)(withProvider(userContext)(FormikSignup))

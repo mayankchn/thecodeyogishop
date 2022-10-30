@@ -1,5 +1,4 @@
 import React from "react";
-// import { useFormik } from "formik";
 import { withFormik } from "formik";
 import * as Yup from 'yup';
 import { Link } from "react-router-dom";
@@ -7,8 +6,8 @@ import FormButton from "./FormButton";
 import Input from "./Input";
 import FancyInput from "./FancyInput";
 import axios from "axios";
-import withUser from "./withUser";
-import withAlert from "./withAlert";
+import withProvider from "./withProvider";
+import { alertContext, userContext } from "./Contexts";
 
 function callApi(values, bag){
     console.log('data sent ',values.email,values.password)
@@ -99,5 +98,5 @@ const FormikSignin =  withFormik({
     handleSubmit:callApi
 })(SignInPage)
 
-export default withAlert(withUser(FormikSignin))
+export default withProvider(alertContext)(withProvider(userContext)(FormikSignin))
 
