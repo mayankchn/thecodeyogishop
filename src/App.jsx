@@ -1,4 +1,4 @@
-import React, { useState, useEffect, createContext } from "react";
+import React, { useState } from "react";
 import ProductList from "./components/ProductList";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
@@ -9,29 +9,15 @@ import CartList from "./components/CartList";
 import SignUpPage from "./components/SignUpPage";
 import SignInPage from "./components/SignInPage";
 import ForgotPage from "./components/ForgotPage";
-import axios from "axios";
-import Loading from "./components/Loading";
 import AuthRoute from "./components/AuthRoute";
 import UserRoute from "./components/UserRoute";
 import LoggedInUser from "./components/LoggedInUser";
 import Alert from "./components/Alert";
-
-export const userContext = createContext()
-export const alertContext = createContext()
+import UserProvider from "./providers/UserProvider";
+import AlertProvider from "./providers/AlertProvider";
 
 function App() {
   console.log("Alright! This is App Component and is running...");
-
-  const [ user, setUser ] = useState()
-  console.log('logged in user ',user)
-
-  const [alert, setAlert] = useState()
-
-  function removeAlert(){
-    setAlert(undefined);
-}
-
-  const [ load, setLoad ] = useState(true)
 
   const storedCartDataString = localStorage.getItem("cartData") || "{}";
   const storedCartData = JSON.parse(storedCartDataString);
@@ -39,56 +25,26 @@ function App() {
   const [cart, setCart] = React.useState(storedCartData);
 
   function handleCartChange(productId, quantity) {
-    // console.log(
-    //   `productId: ${productId}, quantity: ${quantity} has added to cart`
-    // );
-    
     setCart(function (prevCart) {
       const oldQuantity = prevCart[productId] || 0;
-      // console.log('old quantity: ',oldQuantity)
       const newQuantity = oldQuantity + quantity;
-      // console.log('new quantity:',newQuantity)
 
       const newCart = { ...prevCart, [productId]: newQuantity };
-      // console.log("new cart has ", newCart);
       return newCart;
     });
   }
+
   // to store cart data in browser
   localStorage.setItem("cartData", JSON.stringify(cart));
 
   const totalQuantity = Object.keys(cart).reduce(function (output, current) {
     return output + cart[current];
   }, 0);
-  // console.log("total items in cart: ", totalQuantity);
-
-  // console.log("cart has ", cart);
-
-  const token = localStorage.getItem("token")
-
-  useEffect(()=>{
-    if(token){
-      axios.get("https://myeasykart.codeyogi.io/me",{
-        headers:{
-          Authorization:token
-        },
-      }).then((response)=>{
-        setUser(response.data)
-        setLoad(false)
-      });
-    }else{
-      setLoad(false)
-    }
-  },[token])
-
-  if(load){
-    return <Loading />
-  }
 
   return (
     <div className="bg-gray-100">
-      <userContext.Provider value={{user,setUser}}>
-      <alertContext.Provider value={{alert,setAlert,removeAlert}}>
+      <UserProvider>
+      <AlertProvider>
       <Navbar totalQuantity={totalQuantity} />
       <Alert/>
       <Routes>
@@ -112,8 +68,8 @@ function App() {
         element={<AuthRoute><ForgotPage/></AuthRoute>}/>
       </Routes>
       <Footer />
-      </alertContext.Provider>
-      </userContext.Provider>
+      </AlertProvider>
+      </UserProvider>
     </div>
   );
 }

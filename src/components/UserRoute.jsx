@@ -1,6 +1,7 @@
 import React from "react"
 import { Navigate } from "react-router-dom"
-import withUser from "./withUser"
+import { userContext } from "./Contexts"
+import withProvider from "./withProvider"
 
 // Component description
 function UserRoute({user,children}){
@@ -9,4 +10,4 @@ function UserRoute({user,children}){
     }
 return  children
 }
-export default withUser(UserRoute)
+export default withProvider(userContext)(UserRoute)
