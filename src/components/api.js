@@ -3,17 +3,32 @@ import axios from 'axios'
 
 
 export function getProduct(id) {
-  // console.log(`got data of ${id}: `)
-  return axios.get('https://dummyjson.com/products/'+id).then(function(response){
-    // console.log('api ka response: ',response.data)
+  return axios.get('https://dummyjson.com/products/' + id).then(function (response) {
     return response.data
   })
 }
 
-export function getProductList() {
-  // console.log(`here's the product list: `)
-  return axios.get('https://dummyjson.com/products').then(function(response){
-  return response.data.products
+export function getProductList(sortBy, search, page, sortType) {
+  let params = {};
+  
+  if (sortBy) {
+    params.sortBy = sortBy
+  }
+  if (sortType) {
+    params.sortType = sortType
+  }
+  if (search) {
+    params.search = search
+  }
+  if (page) {
+    params.page = page
+  }
+
+  return axios.get('https://myeasykart.codeyogi.io/products', {
+    params,
   })
+    .then(function (response) {
+      return response.data;
+    })
 
 }

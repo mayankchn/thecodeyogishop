@@ -12,7 +12,7 @@ function Product({ thumbnail, category, title, price, id }) {
         <div className="flex flex-col px-2">
           <p className="text-xs text-gray-400 font-bold">{category}</p>
           <h2 className="font-bold text-sm text-gray-500">{title}</h2>
-          <p className="text-xs font-bold text-gray-500">Rs.{price}</p>
+          <p className="text-xs font-bold text-gray-500">${price}</p>
         </div>
       </div>
     </Link>

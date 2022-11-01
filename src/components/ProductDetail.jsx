@@ -81,7 +81,7 @@ function ProductDetail(props) {
         <div className="flex flex-col gap-2 sm:w-1/2 sm:gap-1">
           <p className="text-lgxt-xl">{product.category}</p>
           <h1 className="text-2xl tracking-wide font-semibold text-gray-500 lg:text-3xl lg:tracking-wider lg:font-bold">{product.title}</h1>
-          <p className="text-lg font-black text-gray-500 lg:text-xl">Rs.{product.price}</p>
+          <p className="text-lg font-black text-gray-500 lg:text-xl">${product.price}</p>
           <p className="text-gray-500 lg:text-lg">{product.description}</p>
           <div className="flex my-2 gap-4 justify-between text-lg font-black text-gray-500 lg:text-xl">
             <input type="number" value={quantity} className="border py-2 w-1/5 text-center" onChange={handleQuantity} />
