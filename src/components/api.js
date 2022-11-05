@@ -3,9 +3,22 @@ import axios from 'axios'
 
 
 export function getProduct(id) {
-  return axios.get('https://dummyjson.com/products/' + id).then(function (response) {
+  return axios.get('https://myeasykart.codeyogi.io/product/' + id).then(function (response) {
     return response.data
   })
+}
+
+export function getProductsByIds(ids) {
+  const commaSepeartedIds = ids.join();
+  return axios
+    .get("https://myeasykart.codeyogi.io/products/bulk", {
+      params: {
+        ids: commaSepeartedIds,
+      },
+    })
+    .then(function (response) {
+      return response.data;
+    });
 }
 
 export function getProductList(sortBy, search, page, sortType) {

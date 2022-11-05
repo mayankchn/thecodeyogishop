@@ -18,7 +18,6 @@ export default function CartRow(props) {
             className="border px-3 py-1 w-20 rounded"
             type="number"
             value={props.quantity}
-            // id={props.product.id}
             onChange={(event)=>props.handleChange(event,props.product.id)}
             /></p>
             <p className="border flex justify-between px-2 py-4 lg:border-0 lg:w-1/6"><span className="font-semibold lg:font-bold  lg:hidden lg:border-0">Subtotal:</span><span className="font-semibold lg:font-bold">${props.quantity*props.product.price}</span></p>
