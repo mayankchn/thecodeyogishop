@@ -25,17 +25,16 @@ function App() {
   const [cart, setCart] = React.useState(storedCartData);
 
   function handleCartChange(productId, quantity) {
-    setCart(function (prevCart) {
-      const oldQuantity = prevCart[productId] || 0;
-      const newQuantity = oldQuantity + quantity;
-
-      const newCart = { ...prevCart, [productId]: newQuantity };
-      return newCart;
-    });
+    const prevQuantity = cart[productId] || 0
+    const newCart = { ...cart, [productId]: prevQuantity + quantity }
+    updateCart(newCart);
   }
 
-  // to store cart data in browser
-  localStorage.setItem("cartData", JSON.stringify(cart));
+  function updateCart(newCart) {
+    setCart(newCart)
+    // to store cart data in browser
+    localStorage.setItem("cartData", JSON.stringify(newCart));
+  }
 
   const totalQuantity = Object.keys(cart).reduce(function (output, current) {
     return output + cart[current];
@@ -44,31 +43,31 @@ function App() {
   return (
     <div className="bg-gray-100">
       <UserProvider>
-      <AlertProvider>
-      <Navbar totalQuantity={totalQuantity} />
-      <Alert/>
-      <Routes>
-        <Route index 
-        element={<UserRoute><ProductList /></UserRoute>} />
-        <Route
-          path="/productdetail/:id/"
-          element={<ProductDetail onCartChange={handleCartChange} />}
-        />
-        <Route path="/cart"
-         element={<UserRoute><CartList cartItems={cart} setCart={setCart} /></UserRoute>} />
-        <Route path="/logged-in-user"
-         element={<UserRoute><LoggedInUser/></UserRoute>} />
-        <Route path="*" 
-        element={<Error />} />
-        <Route path="/signup" 
-        element={<AuthRoute><SignUpPage /></AuthRoute>}/>
-        <Route path="/signin" 
-        element={<AuthRoute><SignInPage /></AuthRoute>}/>
-        <Route path="/forgot" 
-        element={<AuthRoute><ForgotPage/></AuthRoute>}/>
-      </Routes>
-      <Footer />
-      </AlertProvider>
+        <AlertProvider>
+          <Navbar totalQuantity={totalQuantity} />
+          <Alert />
+          <Routes>
+            <Route index
+              element={<UserRoute><ProductList /></UserRoute>} />
+            <Route
+              path="/productdetail/:id/"
+              element={<ProductDetail onCartChange={handleCartChange} />}
+            />
+            <Route path="/cart"
+              element={<UserRoute><CartList cartItems={cart} updateCart={updateCart} /></UserRoute>} />
+            <Route path="/logged-in-user"
+              element={<UserRoute><LoggedInUser /></UserRoute>} />
+            <Route path="*"
+              element={<Error />} />
+            <Route path="/signup"
+              element={<AuthRoute><SignUpPage /></AuthRoute>} />
+            <Route path="/signin"
+              element={<AuthRoute><SignInPage /></AuthRoute>} />
+            <Route path="/forgot"
+              element={<AuthRoute><ForgotPage /></AuthRoute>} />
+          </Routes>
+          <Footer />
+        </AlertProvider>
       </UserProvider>
     </div>
   );
